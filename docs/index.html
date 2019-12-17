@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="docs">
+  <head>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>NgRx Documentation</title>
+
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <span class="navbar-brand">Documentation</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 offset-sm-1">
+            <h4>Angular Jest Config</h4>
+        </div>
+        <div class="col-sm-8">
+            <h4>@angular-builders/jest</h4>
+            <p>This documentation is for version 8 only.</p>
+            <h4>Prerequisites</h4>
+            <ul>
+                <li>Angular CLI 8</li>
+                <li>Jest 24</li>
+            </ul>
+            <h4>Installation</h4>
+            <ol>
+                <li>Remove karma related libraries and files
+                <pre>
+                    <code>
+                        npm remove karma karma-chrome-launcher karma-coverage-istanbul-reporter karma-jasmine karma-jasmine-html-reporter
+                        rm ./karma.conf.js ./src/test.ts
+                    </code>
+                </pre>
+                </li>
+                <li>
+                    Install the Angular builder and jest.
+                    <pre>
+                        <code>npm i -D jest @types/jest @angular-builders/jest</code>
+                    </pre>
+                </li>
+            </ol>
+            <h4>Updating Typescript configurations</h4>
+            <ol>
+                <li>In tsconfig.spec.json (root directory, used by Jest):
+                <ul>
+                    <li>
+                        Replace jasmine in types array with jest
+You want your tests to be type-checked against Jest typings and not Jasmine.
+                        <pre>
+                            <code>
+                                "compilerOptions": {
+                                    "outDir": "./out-tsc/spec",
+                                    "types": [
+                                      "jest"
+                                    ]
+                                  },
+                            </code>
+                        </pre>
+                    </li>
+                    <li>
+                        Remove test.ts entry from files array
+This file was responsible for Karma setup, you don't need it here anymore.
+                    </li>
+                </ul>
+                </li>
+                <li>
+                    In tsconfig.json (root directory, used by IDE):
+                    <ul>
+                        <li>
+                            Add jest to types array
+                            <pre>
+                                <code>
+                                    "compilerOptions": {
+                                        "outDir": "./out-tsc/spec",
+                                        "types": [
+                                          "jest"
+                                        ]
+                                      },
+                                </code>
+                            </pre>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+            <h4>Running with Angular CLI</h4>
+            <ul>
+                <li>
+                    In your angular.json
+                    <pre>
+                        <code>
+                            "projects": {
+                                ...
+                                "[your-project]": {
+                                     ...
+                                     "architect": {
+                                            ...
+                                            "test": {
+                                                      "builder": "@angular-builders/jest:run"
+                                                      "options": {
+                                                            ... //see below
+                                                      }
+                        </code>
+                    </pre>
+                </li>
+                <li>Run the tests: ng test</li>
+            </ul>
+            <p>Note: If you get error like (Could not find the implementation for builder @angular-builders/jest:run), then open package.json file at root and update the version of "@angular-builders/jest"</p>
+            <pre>
+                <code>
+                    "@angular-builders/jest": "^8.3.2",
+                </code>
+            </pre>
+            <p>Run <pre><code>npm install</code></pre></p>
+            <p>Then again run <pre><code>ng test</code></pre></p>
+        </div>
+      </div>
+    </div>
+
+    
+  </body>
+</html>
